@@ -60,7 +60,7 @@ func buildRequestHeader(requestBody, path, accessKeyID, accessKeySecret string) 
 	b.WriteString(path)
 
 	mac := hmac.New(sha1.New, []byte(accessKeySecret))
-	_, _ = mac.Write([]byte(b.String()))
+	_, _ = mac.Write(b.Bytes())
 	sign := base64.StdEncoding.EncodeToString(mac.Sum(nil))
 	authorization := "acs " + accessKeyID + ":" + sign
 
